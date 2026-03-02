@@ -5,6 +5,8 @@ const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
+  const all = good + neutral + bad;
+
   return (
     <div>
       <Feedback
@@ -12,7 +14,11 @@ const App = () => {
         setNeutral={setNeutral}
         setBad={setBad}
       ></Feedback>
-      <Statistics good={good} neutral={neutral} bad={bad}></Statistics>
+      {all === 0 ? (
+        <p>No feedback given</p>
+      ) : (
+        <Statistics good={good} neutral={neutral} bad={bad} all={all}/>
+      )}{" "}
     </div>
   );
 };
@@ -40,8 +46,7 @@ const Feedback = ({ setGood, setNeutral, setBad }) => {
   );
 };
 
-const Statistics = ({ good, neutral, bad }) => {
-  const all = good + neutral + bad;
+const Statistics = ({ good, neutral, bad, all }) => {
   const average = all === 0 ? 0 : (good - bad) / all;
   const positive = all === 0 ? 0 : (good / all) * 100;
 
