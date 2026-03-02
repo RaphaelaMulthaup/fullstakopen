@@ -55,12 +55,12 @@ const Statistics = ({ good, neutral, bad, all }) => {
       {" "}
       <h2>Statistics</h2>
       <div>
-        <Display name={"good "} amount={good}></Display>
-        <Display name={"neutral "} amount={neutral}></Display>
-        <Display name={"bad "} amount={bad}></Display>
-        <Display name={"all "} amount={all}></Display>
-        <Display name={"average "} amount={average}></Display>
-        <Display name={"positiv "} amount={positive}></Display>
+        <StatisticLine text={"good "} amount={good}></StatisticLine>
+        <StatisticLine text={"neutral "} amount={neutral}></StatisticLine>
+        <StatisticLine text={"bad "} amount={bad}></StatisticLine>
+        <StatisticLine text={"all "} amount={all}></StatisticLine>
+        <StatisticLine text={"average "} amount={average}></StatisticLine>
+        <StatisticLine text={"positiv "} amount={positive}></StatisticLine>
       </div>
     </>
   );
@@ -70,10 +70,10 @@ const Button = ({ onClick, name }) => {
   return <button onClick={onClick}>{name}</button>;
 };
 
-const Display = ({ name, amount }) => {
+const StatisticLine = ({ text, amount }) => {
   return (
     <div>
-      {name}
+      {text}
       {amount}
     </div>
   );
