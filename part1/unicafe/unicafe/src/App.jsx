@@ -17,7 +17,7 @@ const App = () => {
       {all === 0 ? (
         <p>No feedback given</p>
       ) : (
-        <Statistics good={good} neutral={neutral} bad={bad} all={all}/>
+        <Statistics good={good} neutral={neutral} bad={bad} all={all} />
       )}{" "}
     </div>
   );
@@ -54,14 +54,16 @@ const Statistics = ({ good, neutral, bad, all }) => {
     <>
       {" "}
       <h2>Statistics</h2>
-      <div>
-        <StatisticLine text={"good "} amount={good}></StatisticLine>
-        <StatisticLine text={"neutral "} amount={neutral}></StatisticLine>
-        <StatisticLine text={"bad "} amount={bad}></StatisticLine>
-        <StatisticLine text={"all "} amount={all}></StatisticLine>
-        <StatisticLine text={"average "} amount={average}></StatisticLine>
-        <StatisticLine text={"positiv "} amount={positive}></StatisticLine>
-      </div>
+      <table>
+        <tbody>
+          <StatisticLine text={"good "} amount={good}></StatisticLine>
+          <StatisticLine text={"neutral "} amount={neutral}></StatisticLine>
+          <StatisticLine text={"bad "} amount={bad}></StatisticLine>
+          <StatisticLine text={"all "} amount={all}></StatisticLine>
+          <StatisticLine text={"average "} amount={average}></StatisticLine>
+          <StatisticLine text={"positiv "} amount={positive}></StatisticLine>
+        </tbody>
+      </table>
     </>
   );
 };
@@ -72,10 +74,10 @@ const Button = ({ onClick, name }) => {
 
 const StatisticLine = ({ text, amount }) => {
   return (
-    <div>
-      {text}
-      {amount}
-    </div>
+    <tr>
+      <td>{text}</td>
+      <td>{amount}</td>
+    </tr>
   );
 };
 
