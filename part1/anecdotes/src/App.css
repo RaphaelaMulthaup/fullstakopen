@@ -1,0 +1,8 @@
+.flex-colum{
+    display: flex;
+    flex-direction: column;
+}
+
+.width{
+    width: fit-content;
+}
