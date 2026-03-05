@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./App.css"; 
+import "./App.css";
 
 const App = () => {
   const anecdotes = [
@@ -13,23 +13,41 @@ const App = () => {
     "The only way to go fast, is to go well.",
   ];
 
+  const [votes, setVotes] = useState(
+    Array.from(anecdotes, () => 0)
+  );
+  console.log(votes);
+  
   const [selected, setSelected] = useState(0);
 
-  const selectAnecdotesIndex = () => {
-    setSelected(Math.floor(Math.random() * anecdotes.length))
+  const vote = () => {
+    const copy = [...votes];
+    copy[selected] +=1;
+    setVotes(copy);
   }
 
+  const selectAnecdotesIndex = () => {
+    setSelected(Math.floor(Math.random() * anecdotes.length));
+  };
+
   return (
-    
     <div className="flex-colum">
       {anecdotes[selected]}
-      <Button onClick={selectAnecdotesIndex}></Button>
+      <p>has {votes[selected]} votes</p>
+      <div>
+        <Button onClick={vote} text={"vote"}></Button>
+        <Button onClick={selectAnecdotesIndex} text={"next anecdote"}></Button>
+      </div>
     </div>
   );
 };
 
-const Button = ({onClick}) => {
-  return <button className="width" onClick={onClick} >next anecdote</button>;
+const Button = ({ onClick, text }) => {
+  return (
+    <button className="width" onClick={onClick}>
+      {text}
+    </button>
+  );
 };
 
 export default App;
