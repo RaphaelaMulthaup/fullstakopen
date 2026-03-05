@@ -30,14 +30,19 @@ const App = () => {
     setSelected(Math.floor(Math.random() * anecdotes.length));
   };
 
+  const highestValue = votes.indexOf(Math.max(...votes));
+
   return (
     <div className="flex-colum">
+      <h2>Anecdote of the day</h2>
       {anecdotes[selected]}
       <p>has {votes[selected]} votes</p>
       <div>
         <Button onClick={vote} text={"vote"}></Button>
         <Button onClick={selectAnecdotesIndex} text={"next anecdote"}></Button>
       </div>
+      <h2>Anecdote with most votes</h2>
+      {anecdotes[highestValue]}
     </div>
   );
 };
