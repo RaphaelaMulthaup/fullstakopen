@@ -1,9 +1,11 @@
 const Total = ({ parts }) => {
+  const total = parts.reduce((s, p) => s + p.exercises, 0);
+
   return (
     <p className="bold">
       {" "}
-      <span>Total of </span> 
-      {parts[0].exercises + parts[1].exercises + parts[2].exercises}{" "}
+      <span>Total of </span>
+      {total}
       <span> exercices</span>{" "}
     </p>
   );
