@@ -1,29 +1,17 @@
 import { useState } from "react";
+import Note from "./components/Note"
 
-const App = () => {
-  const [value, setValue] = useState(10);
-
-  const setToValue = (newValue) => {
-    console.log("value now", newValue);
-    setValue(newValue);
-  };
-
-  // Do not define components inside another component
-  const Display = (props) => <div>{props.value}</div>;
-
+const App = ({ notes }) => {
   return (
     <div>
-      <Display value={value} />
-      <Button onClick={() => setToValue(100)} text="hundred" />
-      <Button onClick={() => setToValue(1000)} text="thousand" />
-      <Button onClick={() => setToValue(0)} text="reset" />
-      <Button onClick={() => setToValue(value + 1)} text="increment" />{" "}
+      <h1>Notes</h1>
+      <ul>
+        {notes.map(note => (
+          <Note key={note.id} note={note}></Note>
+        ))}
+      </ul>
     </div>
   );
 };
-
-const Button = (props) => <button onClick={props.onClick}>{props.text}</button>;
-// Do not define components inside another component
-const Display = (props) => <div>{props.value}</div>;
 
 export default App;
