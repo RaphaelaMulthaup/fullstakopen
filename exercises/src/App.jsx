@@ -8,34 +8,42 @@ const App = () => {
   const [showAll, setShowAll] = useState(true);
 
   useEffect(() => {
-    console.log("effect");
     axios.get("http://localhost:3001/notes").then((response) => {
-      console.log("promise fulfilled");
       setNotes(response.data);
     });
   }, []);
-
-  console.log("render", notes.length, "notes");
 
   const addNote = (event) => {
     event.preventDefault();
     const noteObject = {
       content: newNote,
       important: Math.random() < 0.5,
-      id: String(notes.length + 1),
     };
 
-    setNotes(notes.concat(noteObject));
-    setNewNote("");
+    axios.post("http://localhost:3001/notes", noteObject).then((response) => {
+      setNotes(notes.concat(response.data));
+      setNewNote("");
+    });
   };
+
   const handleNoteChange = (event) => {
-    console.log(event.target);
     setNewNote(event.target.value);
   };
 
   const notesToShow = showAll
     ? notes
     : notes.filter((note) => note.important === true);
+
+  const toggleImportance = (id) => {    
+    const noteObject = notes.find(n => n.id === id);
+    noteObject.important = !noteObject.important;
+            console.log('Gib mir die richtige note:', noteObject.important);
+
+    //     axios.put("http://localhost:3001/"+${id}, noteObject).then((response) => {
+    //   setNotes(...notes, );
+    // });
+
+  }
 
   return (
     <div>
@@ -47,7 +55,7 @@ const App = () => {
       </div>
       <ul>
         {notesToShow.map((n) => (
-          <Note key={n.id} note={n}></Note>
+          <Note key={n.id} note={n} toggleImportance={()=>toggleImportance(n.id)}></Note>
         ))}
       </ul>
       <form onSubmit={addNote}>
