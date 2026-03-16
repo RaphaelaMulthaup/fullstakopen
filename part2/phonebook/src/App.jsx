@@ -3,11 +3,14 @@ import FormNewPerson from "./components/FormNewPerson";
 import ContactList from "./components/ContactList";
 import Search from "./components/Search";
 import personService from "./services/persons";
+import Notification from "./components/Notification";
+import './index.css'
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newPerson, setNewPerson] = useState({ name: "", number: "" });
   const [searchTerm, setSearchTerm] = useState("");
+  const [notificationMessage, setNotificationMessage] = useState(null);
 
   const filteredPersons = persons.filter((p) =>
     p.name.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -43,6 +46,13 @@ const App = () => {
     personService
       .create(personObject)
       .then((response) => {
+        setNotificationMessage(
+          `Added ${personObject.name}`,
+        );
+        setTimeout(() => {
+          setNotificationMessage(null);
+        }, 5000);
+
         setPersons(persons.concat(response));
         setNewPerson({ name: "", number: "" });
       })
@@ -73,14 +83,14 @@ const App = () => {
     setNewPerson({ name: "", number: "" });
   };
 
-const deletePerson = (id) => {
-  personService
-    .deletePerson(id)
-    .then(() => {
-      setPersons(persons.filter((p) => p.id !== id));
-    })
-    .catch(() => alert("The contact could not be deleted."));
-};
+  const deletePerson = (id) => {
+    personService
+      .deletePerson(id)
+      .then(() => {
+        setPersons(persons.filter((p) => p.id !== id));
+      })
+      .catch(() => alert("The contact could not be deleted."));
+  };
   const handleNameChange = (event) => {
     setNewPerson({ ...newPerson, name: event.target.value });
   };
@@ -96,6 +106,7 @@ const deletePerson = (id) => {
   return (
     <div>
       <h1>Phonebook</h1>
+      <Notification message={notificationMessage}></Notification>
       <Search onChange={handleSearchTermChange}></Search>
       <FormNewPerson
         onSubmit={addPerson}
