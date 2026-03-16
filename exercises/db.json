@@ -3,7 +3,7 @@
     {
       "id": "1",
       "content": "HTML is easy!",
-      "important": true
+      "important": false
     },
     {
       "id": "2",
@@ -32,12 +32,12 @@
     },
     {
       "content": "Verkaufen",
-      "important": true,
+      "important": false,
       "id": "3LjGz83"
     },
     {
       "content": "Verkaufen",
-      "important": false,
+      "important": true,
       "id": "xfzOiVv"
     },
     {
@@ -54,6 +54,16 @@
       "content": "Spielen",
       "important": false,
       "id": "8hOwDj_"
+    },
+    {
+      "content": "Essen",
+      "important": true,
+      "id": "qCx-sxB"
+    },
+    {
+      "content": "Video gucken",
+      "important": true,
+      "id": "w7jYGhR"
     }
   ]
 }

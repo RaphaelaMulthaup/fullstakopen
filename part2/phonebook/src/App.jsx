@@ -3,16 +3,20 @@ import axios from "axios";
 import FormNewPerson from "./components/FormNewPerson";
 import ContactList from "./components/ContactList";
 import Search from "./components/Search";
+import personService from "./services/persons";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newPerson, setNewPerson] = useState({ name: "", number: "" });
-  const [filteredPersons, setFilteredPersons] = useState(persons);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredPersons = persons.filter((p) =>
+    p.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons").then((response) => {
-      setPersons(response.data);
-      setFilteredPersons(response.data)
+    personService.getAll().then((response) => {
+      setPersons(response);
     });
   }, []);
 
@@ -32,8 +36,10 @@ const App = () => {
       id: persons.length + 1,
     };
 
-    setPersons(persons.concat(personObject));
-    setNewPerson({ name: "", number: "" });
+    personService.create(personObject).then((response) => {
+      setPersons(persons.concat(response));
+      setNewPerson({ name: "", number: "" });
+    });
   };
 
   const handleNameChange = (event) => {
@@ -45,11 +51,7 @@ const App = () => {
   };
 
   const handleSearchTermChange = (event) => {
-    console.log(event.target.value);
-    const filteredPersons = persons.filter((p) =>
-      p.name.toLowerCase().includes(event.target.value.toLowerCase()),
-    );
-    setFilteredPersons(filteredPersons);
+    setSearchTerm(event.target.value);
   };
 
   return (
