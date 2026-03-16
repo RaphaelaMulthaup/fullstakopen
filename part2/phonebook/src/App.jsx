@@ -14,37 +14,73 @@ const App = () => {
   );
 
   useEffect(() => {
-    personService.getAll().then((response) => {
-      setPersons(response);
-    });
+    personService
+      .getAll()
+      .then((response) => {
+        setPersons(response);
+      })
+      .catch(() => alert("The data could not be loaded."));
   }, []);
 
   const addPerson = (event) => {
     event.preventDefault();
-
-    const exists = persons.some((p) => p.name === newPerson.name);
-
-    if (exists) {
-      alert(`${newPerson.name} is already added to phonebook`);
-      return;
-    }
 
     const personObject = {
       name: newPerson.name,
       number: newPerson.number,
     };
 
-    personService.create(personObject).then((response) => {
-      setPersons(persons.concat(response));
-      setNewPerson({ name: "", number: "" });
-    });
+    const existingPerson = persons.find((p) => p.name === newPerson.name);
+
+    if (existingPerson) {
+      handleExistingPerson(existingPerson, personObject);
+    } else {
+      createNewPerson(personObject);
+    }
   };
 
-  const deletePerson = (id) => {
-    personService.deletePerson(id);
-    setPersons(persons.filter((p) => p.id != id));
+  const createNewPerson = (personObject) => {
+    personService
+      .create(personObject)
+      .then((response) => {
+        setPersons(persons.concat(response));
+        setNewPerson({ name: "", number: "" });
+      })
+      .catch(() => alert("The data for the new contact could not be saved."));
   };
 
+  const handleExistingPerson = (existingPerson, personObject) => {
+    if (windowConfirmReplace(existingPerson)) {
+      personService
+        .replaceNumber(existingPerson.id, personObject)
+        .then((returneObject) => {
+          setStatesAferReplaceNumber(existingPerson, returneObject);
+        })
+        .catch(() => alert("The number could not be replaced."));
+    }
+  };
+
+  const windowConfirmReplace = (existingPerson) => {
+    return window.confirm(
+      `${existingPerson.name} is already added to phonebook, replace the old number with a new one?`,
+    );
+  };
+
+  const setStatesAferReplaceNumber = (existingPerson, returneObject) => {
+    setPersons(
+      persons.map((p) => (p.id === existingPerson.id ? returneObject : p)),
+    );
+    setNewPerson({ name: "", number: "" });
+  };
+
+const deletePerson = (id) => {
+  personService
+    .deletePerson(id)
+    .then(() => {
+      setPersons(persons.filter((p) => p.id !== id));
+    })
+    .catch(() => alert("The contact could not be deleted."));
+};
   const handleNameChange = (event) => {
     setNewPerson({ ...newPerson, name: event.target.value });
   };
