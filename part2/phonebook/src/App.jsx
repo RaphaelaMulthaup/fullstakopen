@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import FormNewPerson from "./components/FormNewPerson";
 import ContactList from "./components/ContactList";
 import Search from "./components/Search";
@@ -33,13 +32,17 @@ const App = () => {
     const personObject = {
       name: newPerson.name,
       number: newPerson.number,
-      id: persons.length + 1,
     };
 
     personService.create(personObject).then((response) => {
       setPersons(persons.concat(response));
       setNewPerson({ name: "", number: "" });
     });
+  };
+
+  const deletePerson = (id) => {
+    personService.deletePerson(id);
+    setPersons(persons.filter((p) => p.id != id));
   };
 
   const handleNameChange = (event) => {
@@ -64,7 +67,10 @@ const App = () => {
         handleNameChange={handleNameChange}
         handleNumberChange={handleNumberChange}
       ></FormNewPerson>
-      <ContactList persons={filteredPersons}></ContactList>
+      <ContactList
+        persons={filteredPersons}
+        deletePerson={deletePerson}
+      ></ContactList>
     </div>
   );
 };

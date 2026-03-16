@@ -1,16 +1,16 @@
-const ContactList = ({ persons }) => {
+import Person from "./Person";
+
+const ContactList = ({ persons, deletePerson }) => {
   return (
     <>
       <h2>Numbers</h2>
       <ul>
         {persons.map((p) => (
-          <li key={p.id}>
-            {p.name}: {p.number}
-          </li>
+          <Person key={p.id} person={p} deletePerson={deletePerson}></Person>
         ))}
       </ul>
     </>
   );
 };
 
-export default ContactList
+export default ContactList;
