@@ -4,13 +4,16 @@ import ContactList from "./components/ContactList";
 import Search from "./components/Search";
 import personService from "./services/persons";
 import Notification from "./components/Notification";
-import './index.css'
+import "./index.css";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newPerson, setNewPerson] = useState({ name: "", number: "" });
   const [searchTerm, setSearchTerm] = useState("");
-  const [notificationMessage, setNotificationMessage] = useState(null);
+  const [notificationMessage, setNotificationMessage] = useState({
+    message: null,
+    error: false,
+  });
 
   const filteredPersons = persons.filter((p) =>
     p.name.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -46,11 +49,12 @@ const App = () => {
     personService
       .create(personObject)
       .then((response) => {
-        setNotificationMessage(
-          `Added ${personObject.name}`,
-        );
+        setNotificationMessage({
+          message: `Added ${personObject.name}`,
+          error: false,
+        });
         setTimeout(() => {
-          setNotificationMessage(null);
+          setNotificationMessage({ ...notificationMessage, message: null });
         }, 5000);
 
         setPersons(persons.concat(response));
@@ -66,7 +70,7 @@ const App = () => {
         .then((returneObject) => {
           setStatesAferReplaceNumber(existingPerson, returneObject);
         })
-        .catch(() => alert("The number could not be replaced."));
+        .catch(() => displayNotification(existingPerson));
     }
   };
 
@@ -81,6 +85,16 @@ const App = () => {
       persons.map((p) => (p.id === existingPerson.id ? returneObject : p)),
     );
     setNewPerson({ name: "", number: "" });
+  };
+
+  const displayNotification = (existingPerson) => {
+    setNotificationMessage({
+      message: `Information of ${existingPerson.name} has already been removed from server`,
+      error: true,
+    });
+    setTimeout(() => {
+      setNotificationMessage({ ...notificationMessage, message: null });
+    }, 5000);
   };
 
   const deletePerson = (id) => {

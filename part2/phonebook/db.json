@@ -1,29 +1,14 @@
 {
   "persons": [
     {
-      "name": "Jonna",
-      "number": "2222222222",
-      "id": 11
-    },
-    {
       "name": "Jens",
-      "number": "9898989",
-      "id": 13
+      "number": "342323",
+      "id": 3
     },
     {
-      "name": "Mirco",
-      "number": "45454545",
-      "id": 14
-    },
-    {
-      "name": "Klaas",
-      "number": "9090909090",
-      "id": 15
-    },
-    {
-      "name": "ellen",
-      "number": "89898989898989",
-      "id": 16
+      "name": "Klaus",
+      "number": "87878787",
+      "id": 4
     }
   ]
 }
