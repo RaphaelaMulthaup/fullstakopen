@@ -6,6 +6,7 @@ import countrieService from "./services/countries";
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [countriesInformations, setCountriesInformations] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState(null);
 
   useEffect(() => {
     countrieService
@@ -18,11 +19,16 @@ const App = () => {
 
   const handleSearchTermChange = (event) => {
     setSearchTerm(event.target.value);
+    setSelectedCountry(null);
   };
 
   const filteredCountries = countriesInformations.filter((c) =>
     c.name.official.toLowerCase().includes(searchTerm.toLowerCase()),
   );
+
+  const showCountryDetail = (i) => {
+    setSelectedCountry(filteredCountries[i]);
+  };
 
   return (
     <>
@@ -30,7 +36,12 @@ const App = () => {
         searchTerm={searchTerm}
         handleSearchTermChange={handleSearchTermChange}
       ></Form>
-      <Results filteredCountries={filteredCountries} searchTerm={searchTerm}></Results>
+      <Results
+        filteredCountries={filteredCountries}
+        searchTerm={searchTerm}
+        showCountryDetail={showCountryDetail}
+        selectedCountry={selectedCountry}
+      ></Results>
     </>
   );
 };

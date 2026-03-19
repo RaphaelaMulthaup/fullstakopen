@@ -1,8 +1,8 @@
-const ResultList = ({filteredCountries}) => {  
+const ResultList = ({filteredCountries, showCountryDetail}) => {  
   return (
     <ul>
       {filteredCountries.map((c, i) => (
-        <li key={i}>{c.name.official}</li>
+        <li key={i}>{c.name.official} <button onClick={()=>showCountryDetail(i)}>Show</button></li>
       ))}
     </ul>
   );
