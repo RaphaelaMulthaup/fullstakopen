@@ -1,13 +1,18 @@
 import ResultList from "./ResultList";
-import CountryDetail from "./CountryDetail"
+import CountryDetail from "./CountryDetail";
 
-const Results = ({ filteredCountries, searchTerm, showCountryDetail, selectedCountry }) => {
+const Results = ({
+  filteredCountries,
+  searchTerm,
+  showCountryDetail,
+  selectedCountry,
+}) => {
   if (!searchTerm) {
     return null;
   }
 
   if (selectedCountry) {
-    return <CountryDetail country={selectedCountry}/>;
+    return <CountryDetail country={selectedCountry} />;
   }
 
   if (filteredCountries.length > 10) {
@@ -18,7 +23,12 @@ const Results = ({ filteredCountries, searchTerm, showCountryDetail, selectedCou
     return <CountryDetail country={filteredCountries[0]} />;
   }
 
-  return <ResultList filteredCountries={filteredCountries} showCountryDetail={showCountryDetail}/>;
+  return (
+    <ResultList
+      filteredCountries={filteredCountries}
+      showCountryDetail={showCountryDetail}
+    />
+  );
 };
 
 export default Results;
