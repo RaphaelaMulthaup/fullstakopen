@@ -19,6 +19,7 @@ const Anecdotes = () => {
 
   return (
     <>
+      <h2>Anecdotes</h2>
       {anecdotes.map((a) => (
         <Anecdote
           key={a.id}
