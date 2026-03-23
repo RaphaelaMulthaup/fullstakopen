@@ -29,7 +29,7 @@ const reducer = (state = initialState, action) => {
       const anecdoteToVote = state.find((n) => n.id === id);
       const changeAnecdote = {
         ...anecdoteToVote,
-        votes: (anecdoteToVote.votes += 1),
+        votes: (anecdoteToVote.votes + 1),
       };
       return state.map((a) => (a.id !== id ? a : changeAnecdote));
     }
