@@ -45,4 +45,11 @@ export const vote = (id) => {
   };
 };
 
+export const createAnecdote = (anecdote) => {
+  return {
+    type: "NEW_ANECDOTE",
+    payload: asObject(anecdote),
+  };
+};
+
 export default reducer;
