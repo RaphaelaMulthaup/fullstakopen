@@ -44,6 +44,11 @@
       "content": "Hallo",
       "votes": 0,
       "id": "0-tHkLs5H18"
+    },
+    {
+      "content": "Rapha",
+      "votes": 0,
+      "id": "RV8vvL5cjMc"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
