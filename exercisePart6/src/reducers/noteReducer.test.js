@@ -3,7 +3,7 @@ import { describe, expect, test } from "vitest";
 import noteReducer from "./noteReducer";
 
 describe("noteReducer", () => {
-  test("returns new state with action TOGGLE_IMPORTANCE", () => {
+  test("returns new state with action notes/toggleImportanceOf", () => {
     const state = [
       {
         content: "the app state is in redux store",
@@ -18,10 +18,8 @@ describe("noteReducer", () => {
     ];
 
     const action = {
-      type: "TOGGLE_IMPORTANCE",
-      payload: {
-        id: 2,
-      },
+      type: "notes/toggleImportanceOf",
+      payload: 2
     };
 
     deepFreeze(state);
@@ -37,21 +35,18 @@ describe("noteReducer", () => {
       id: 2,
     });
   });
-  //   test('returns new state with action NEW_NOTE', () => {
-  //     const state = []
-  //     const action = {
-  //       type: 'NEW_NOTE',
-  //       payload: {
-  //         content: 'the app state is in redux store',
-  //         important: true,
-  //         id: 1
-  //       }
-  //     }
 
-  //     deepFreeze(state)
-  //     const newState = noteReducer(state, action)
+    test('returns new state with action notes/createNote', () => {
+      const state = []
+      const action = {
+        type: 'notes/createNote',
+        payload: 'the app state is in redux store'
+      }
 
-  //     expect(newState).toHaveLength(1)
-  //     expect(newState).toContainEqual(action.payload)
-  //   })
+      deepFreeze(state)
+      const newState = noteReducer(state, action)
+
+      expect(newState).toHaveLength(1)
+      expect(newState.map(note => note.content)).toContainEqual(action.payload)
+    })
 });
