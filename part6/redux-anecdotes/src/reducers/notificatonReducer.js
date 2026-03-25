@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const showNotification = (notification) => {
+export const showNotification = (notification, time) => {
   return (dispatch) => {
     dispatch(setNotification(notification));
-    setTimeout(() => dispatch(clearNotification()), 5000);
+    setTimeout(() => dispatch(clearNotification()), time * 1000);
   };
 };
 
