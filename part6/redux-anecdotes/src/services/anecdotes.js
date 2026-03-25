@@ -11,20 +11,30 @@ const getAll = async () => {
 };
 
 const createNew = async (content) => {
-   const options = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ content, votes: 0 }),
-  }
-  
-  const response = await fetch(baseUrl, options)
-
-
+  };
+  const response = await fetch(baseUrl, options);
   if (!response.ok) {
     throw new Error("Failed to create anecdote");
   }
-
   return await response.json();
 };
 
-export default { getAll, createNew };
+const increaseVote = async (id, oldVote) => {
+  const options = {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ votes: oldVote + 1 }),
+  };
+
+  const response = await fetch(`${baseUrl}/${id}`, options);
+  if (!response.ok) {
+    throw new Error("Failed to increase vote");
+  }
+  return await response.json();
+};
+
+export default { getAll, createNew, increaseVote };
