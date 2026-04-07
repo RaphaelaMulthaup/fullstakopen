@@ -12,7 +12,7 @@ const App = () => {
     queryKey: ['anecdotes'],
     queryFn: getAnecdotes,
     refetchOnWindowFocus: false,
-    retry: 1
+    retry: 1,
   })
 
   console.log(JSON.parse(JSON.stringify(result)))
@@ -28,11 +28,10 @@ const App = () => {
 
   return (
     <div>
-
       <h3>Anecdote app</h3>
 
       <Notification />
-      <AnecdoteForm />
+      <AnecdoteForm/>
 
       {anecdotes.map((anecdote) => (
         <div key={anecdote.id}>
