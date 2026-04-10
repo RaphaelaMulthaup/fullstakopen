@@ -11,11 +11,18 @@ export const useAnecdotes = () => {
   const addAnecdote = (anecdote) => {
     anecdoteService
       .createNew(anecdote)
-      .then((data) => setAnecdotes([...anecdotes,data]));
+      .then((data) => setAnecdotes([...anecdotes, data]));
+  };
+
+  const deleteAnecdote = (id) => {
+    anecdoteService
+      .deleteAnecdote(id)
+      .then(() => setAnecdotes(anecdotes.filter((a) => a.id != id)));
   };
 
   return {
     anecdotes,
     addAnecdote,
+    deleteAnecdote,
   };
 };

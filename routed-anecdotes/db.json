@@ -15,32 +15,39 @@
       "id": "2"
     },
     {
-      "content": "test",
+      "content": "Test",
       "author": "",
       "info": "",
       "votes": 0,
-      "id": "Wwfko-HwkM8"
+      "id": "fTZYezVTJ9g"
     },
     {
-      "content": "Duplo",
+      "content": "t",
       "author": "",
       "info": "",
       "votes": 0,
-      "id": "XsRjBhK6Z3A"
+      "id": "XKZaAWZIY9I"
     },
     {
-      "content": "Jetzt aber",
+      "content": "g",
       "author": "",
       "info": "",
       "votes": 0,
-      "id": "TzDkIlrCoMk"
+      "id": "NcKvB9dQjgc"
     },
     {
-      "content": "Und noch als Array",
+      "content": "zu",
       "author": "",
       "info": "",
       "votes": 0,
-      "id": "aznyZNn06dk"
+      "id": "GiResw41lXk"
+    },
+    {
+      "content": "grgsdfsdf",
+      "author": "",
+      "info": "",
+      "votes": 0,
+      "id": "HBw85hXzof0"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
